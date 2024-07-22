@@ -70,7 +70,7 @@ if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] == UPLOAD
     }
 
     if($message == 'Subido'){
-        header("Location: ../../index.html");
+        header("Location: ../../manage_files.html");
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,67 +7,52 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        #group{
-            display:flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
-            margin-bottom: 8px;
-            /* height: 100vh; Altura del contenedor */
+        body {
+            position: relative;
+            height: 90vh; /* Altura del contenedor */
         }
 
-        #group div{
-            margin: 4px;
+        .group {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centra horizontal y verticalmente */
         }
 
-        #search{
-            padding-top: 4px;
-            padding-bottom: 4px;
-            border-radius: 8px;
+        .buttons-idx{
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        table, th, td {
-            border: 1px solid black; 
+        .btn-login{
+            margin-right: 40px;
         }
 
-        th, td {
-            padding: 6px;
-        }
     </style>
 </head>
 <body>
-    <center>
+    
+    <div class="group">
+        <center>
         <header>
-            <h1>GESTOR DE ARCHIVOS</h1>
-            <h5>version. 1.2.0</h5>
-            <div id="group">
-                <div class="agregar"><button>+</button></div>
-                <!-- <div class="descargar"><button>Descargar</button></div>
-                <div class="eliminar"><button>Eliminar</button></div> -->
-                <div class="newFolder"><button>New-Sub-Folder</button></div>
-                <!-- <div class="actualizar"><button>re-charge</button></div> -->
-                <div class="txt-search"><input type="text" name="search" id="search" placeholder="¿Qué buscas?" /></div>
-            </div>
+            <h1>
+                Gestor de Archivos
+            </h1>
+            <p>Este es un proyecto para almacenar documentos, imagenes, <br> videos e incluso archivos compresos.</p>
         </header>
-
+        </center>
         <aside>
-            <table>
-                <tr>
-                    <th>NOMBRE</th>
-                    <th>TIPO</th>
-                    <th>PESO</th>
-                    <th>FECHA</th>
-                    <th>ACCION</th>
-                </tr>
-                    <div class="res"></div>
-            </table>
-
+            <div class="buttons-idx">
+                <button class="btn-login">Log In</button>
+                <button class="btn-signup">Sign Up</button>
+            </div>
         </aside>
-    </center>
+        <footer>
 
-    <br>
-    <footer>
-        <h5><strong> <center> Todos los derechos reservados a MORA-TECH 2024 </center> </strong></h5>
-    </footer>
-    <script src="js/funciones.js"></script>
+        </footer>
+    </div>
+
+    <script src="./js/init.js"></script>
 </body>
 </html>
