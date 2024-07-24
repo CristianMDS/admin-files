@@ -12,15 +12,36 @@ $('#btn-ing').click(() => {
     $.post("./exe/comprobar_exe.php", params,
         function (d) {
             d = d.trim();
+            console.log(d);
             if(d === "Error"){
                 $('#message').attr('style', 'color:red');
                 $('#message').html('Comprueba tu Usuario o Contraseña');
             }else if(d === "Ingresa"){
-                window.location.href = "../manage_files.html";
+                window.location.href = "../manage_files.php";
             }
         },
         "HTML"
     );
+});
+
+$('#log-out').click(() => { 
+    Swal.fire({
+        title: "¿Salir?",
+        icon: "warning",
+        html: `Esta seguro que <strong>quiere salir</strong>`,
+
+        showConfirmButton: true,
+        confirmButtonText: "Cerrar sesion",
+        confirmButtonColor: "red",
+
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "grey"
+    }).then((res) => {
+        if(res.isConfirmed){
+            window.location.href = "./php/exe/logOut_exe.php";
+        }
+    });
 });
 
 $('#btn-reg').click(() => { 
@@ -63,7 +84,7 @@ $('#btn-reg').click(() => {
                         icon: "success"
                     }).then((r) => {
                         if(r.isConfirmed){
-                            window.location.href = "../index.html";
+                            window.location.href = "../index.php";
                         }
                     });
                 }else if(d === 'Error'){
@@ -140,36 +161,6 @@ $('.newFolder').click(async () => {
 
 $('.descargar').click(() => {
     window.location.href = "./php/exe/descargar_ex.php?archivo=backup_2024-07-20_subir_a_compensar.rar"
-});
-
-$('.eliminar').click(() => {
-
-    let params = {
-        "archivo" : "backup_Certificate.pdf",
-        "route": "../../upload_files/"
-    };
-
-    $.ajax({
-        type: "GET",
-        url: "./php/exe/eliminar_ex.php",
-        data: params,
-        success: (banana) => {
-
-            // console.log(banana);
-
-            let arr = banana.split(" - ");
-            let r = arr[0];
-            let archivo = arr[1];
-
-            if(r === 'Listo'){
-                Swal.fire({
-                    title: "<strong>El archivo</strong>",
-                    icon: "info",
-                    html: `<p> El archivo ${archivo} ya fue eliminado </p>`
-                }); 
-            }
-        }
-    });
 });
 
 $('.log-in').click(function (e) { 

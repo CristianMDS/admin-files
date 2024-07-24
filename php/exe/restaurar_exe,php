@@ -1,0 +1,57 @@
+<?php
+
+require("../conection/xconect.php");
+
+
+
+$mail = trim(urldecode(filter_var($_POST["mail"], FILTER_SANITIZE_EMAIL)));
+$user = trim(urldecode(filter_var($_POST["user"], FILTER_UNSAFE_RAW)));
+
+$codigo = trim(urldecode(filter_var($_POST["codigo"], FILTER_SANITIZE_NUMBER_INT)));
+
+
+if($codigo != ''){
+
+    $sql = "SELECT codigo_tmp FROM usuarios WHERE mail = '$mail' AND usuario = '$user'";
+    $qry = $conn->query($sql);
+
+    if($row = $qry->fetch_assoc())
+        $codigo_tmp = trim($row["codigo_tmp"]);
+
+    if($codigo == $codigo_tmp)
+        echo "Exito";
+
+    return;
+}
+
+$sql = "SELECT usuario FROM usuarios WHERE usuario = '$user'";
+$qry = $conn->query($sql);
+
+if($qry->num_rows <= 0)
+    echo "Error-u";
+
+$sql = "SELECT mail FROM usuarios WHERE mail = '$mail'";
+$qry = $conn->query($sql);
+
+if($qry->num_rows <= 0)
+    echo "Error-mail";
+
+$sql = "SELECT mail FROM usuarios WHERE mail = '$mail' AND usuario = '$user'";
+$qry = $conn->query($sql);
+
+if($qry->num_rows > 0){
+
+    $cd_random = rand(1000, 9999);
+
+    $zql = "UPDATE usuarios SET codigo = '$cd_random' WHERE mail = '$mail' AND usuario = '$user'";
+        $conn->query($zql);
+
+    /*
+    * Aqui va phpMailer
+    */
+
+    echo "Exito";
+}
+
+
+?>

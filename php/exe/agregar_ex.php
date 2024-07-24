@@ -56,12 +56,21 @@ if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] == UPLOAD
 
         $dest_path = $uDir.$newName;
 
-        $sql = "INSERT INTO archivos (nombre_archivo, tipo, size, fecha, hora, estado, codigo, nuevoNombre_archivo) 
-                VALUES ('$arr_name[0]', '$extension', '$size', '$date', '$hora', 'Subido', 1234, '$newName')";
-            $conn->query($sql);
+        $sql = "SELECT MAX(codigo)+1 AS new_code FROM archivos";
+        $qry = $conn->query($sql);
+        $row = $qry->fetch_assoc();
 
-        $sql = "INSERT INTO rutas (ruta, codigo_archivo) VALUES ('$uDir', 1234)";
-            $conn->query($sql);
+        $code_file = (int) trim($row["new_code"]);
+
+        $sql = "INSERT INTO archivos (nombre_archivo, tipo, size, fecha, hora, estado, codigo, nuevoNombre_archivo) 
+                VALUES ('$arr_name[0]', '$extension', '$size', '$date', '$hora', 'Subido', $code_file, '$newName')";
+        $qry = $conn->query($sql);
+
+        if($qry){
+            $sql = "INSERT INTO rutas (ruta, codigo_archivo) VALUES ('$uDir', $code_file)";
+                $conn->query($sql);
+        }
+
 
         if(move_uploaded_file($path, $dest_path))
             $message = 'Subido';
@@ -70,7 +79,7 @@ if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] == UPLOAD
     }
 
     if($message == 'Subido'){
-        header("Location: ../../manage_files.html");
+        header("Location: ../../manage_files.php");
     }
 
 }

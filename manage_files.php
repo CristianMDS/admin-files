@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+
+if(trim($_SESSION["usu"]) == ''){
+    header("Location: ./php/exe/logOut_exe.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,17 +41,25 @@
         th, td {
             padding: 6px;
         }
+
+        #exit {
+            display:flex;
+            justify-content: end;
+        }
     </style>
 </head>
 <body>
+    <div id="exit">
+        <button id="log-out">Log Out</button>
+    </div>
     <center>
         <header>
             <h1>GESTOR DE ARCHIVOS</h1>
             <h5>version. 1.2.0</h5>
             <div id="group">
                 <div class="agregar"><button>+</button></div>
-                <!-- <div class="descargar"><button>Descargar</button></div>
-                <div class="eliminar"><button>Eliminar</button></div> -->
+                <div class="descargar"><button>Descargar</button></div>
+                <div class="eliminar"><button>Eliminar</button></div>
                 <div class="newFolder"><button>New-Sub-Folder</button></div>
                 <!-- <div class="actualizar"><button>re-charge</button></div> -->
                 <div class="txt-search"><input type="text" name="search" id="search" placeholder="¿Qué buscas?" /></div>
@@ -56,7 +73,7 @@
                     <th>TIPO</th>
                     <th>PESO</th>
                     <th>FECHA</th>
-                    <th>ACCION</th>
+                    <th colspan="2">ACCION</th>
                 </tr>
                     <div class="res"></div>
             </table>
@@ -68,6 +85,11 @@
     <footer>
         <h5><strong> <center> Todos los derechos reservados a MORA-TECH 2024 </center> </strong></h5>
     </footer>
-    <script src="js/funciones.js"></script>
+    <?php
+        echo "
+            <script src='js/funciones.js'></script>
+            <script src='js/security.js'></script>
+        ";
+    ?>
 </body>
 </html>

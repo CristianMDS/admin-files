@@ -52,7 +52,12 @@
                 <input type="password" name="pass" id="pass" placeholder="Contraseña..." />
             </label>
             <br><br>
-            <center><button id="btn-ing">Ingresar</button></center>
+            <center>
+                <button id="btn-ing">Ingresar</button>
+                <br>
+                <a href="./restaurar_pass.php">¿Olvido la contraseña?</a>
+            </center>
+
         </aside>
 
         <footer>
