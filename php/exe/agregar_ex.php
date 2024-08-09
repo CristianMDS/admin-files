@@ -2,26 +2,6 @@
 
 require("../conection/xconect.php");
 
-// Forma Orientada a objetos.
-/*
-    $sql = "SELECT ruta, codigo_archivo FROM rutas";
-    $qry = $conn->query($sql);
-
-    while($row = $qry->fetch_assoc()){
-        echo "ruta: ".$row["ruta"]." codigo_archivo: ".$row["codigo_archivo"];
-    }
-*/
-
-// Forma Procedural.
-/*
-    $sql = "SELECT ruta, codigo_archivo FROM rutas";
-    $qry = mysqli_query($conn, $sql);
-
-    while($row = mysqli_fetch_array($qry)){
-        echo "ruta: ".$row["ruta"]." codigo_archivo: ".$row["codigo_archivo"];
-    }
-*/
-
 date_default_timezone_set('America/Bogota');
 
 $date = date("Y-m-d");
@@ -46,7 +26,7 @@ if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] == UPLOAD
         $zip = true;
     }
 
-    $allowedfileExtensions = array('zip', 'rar', 'pdf', 'xls', 'doc');
+    $allowedfileExtensions = array('zip', 'rar', 'pdf', 'xls', 'doc', 'mp4');
     if (in_array($extension, $allowedfileExtensions)) {
         // CARPETA PREDETERMINADA PARA SUBIR FILES
         $uDir = '../../upload_files/'; 

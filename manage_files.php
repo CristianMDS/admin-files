@@ -58,10 +58,10 @@ if(trim($_SESSION["usu"]) == ''){
             <h5>version. 1.2.0</h5>
             <div id="group">
                 <div class="agregar"><button>+</button></div>
-                <div class="descargar"><button>Descargar</button></div>
-                <div class="eliminar"><button>Eliminar</button></div>
-                <div class="newFolder"><button>New-Sub-Folder</button></div>
-                <!-- <div class="actualizar"><button>re-charge</button></div> -->
+                <!-- <div class="descargar"><button>Descargar</button></div>
+                <div class="eliminar"><button>Eliminar</button></div> -->
+                <!-- <div class="newFolder"><button>New-Sub-Folder</button></div> -->
+                <div class="actualizar"><button>re-charge</button></div>
                 <div class="txt-search"><input type="text" name="search" id="search" placeholder="¿Qué buscas?" /></div>
             </div>
         </header>
@@ -76,6 +76,30 @@ if(trim($_SESSION["usu"]) == ''){
                     <th colspan="2">ACCION</th>
                 </tr>
                     <div class="res"></div>
+                <?php
+                
+                require("./php/conection/xconect.php");
+
+                $usu = $_SESSION["usu"];
+
+                $sql = "SELECT * FROM archivos ORDER BY fecha DESC";
+                $qry = $conn->query($sql);
+
+                $html = "";
+                while($row = $qry->fetch_assoc()){
+                    $html .= "<tr>";
+                        $html .= "<td><center>".$row['nombre_archivo']."</center></td>
+                                    <td><center>".$row['tipo']."</center></td>
+                                    <td><center>".$row['size']."</center></td>
+                                    <td><center>".$row['fecha']." - ".$row['hora']."</center></td>
+                                    <td><button>Descargar</button></td>
+                                    <td><button class='eliminar' id='".$row['nombre_archivo']."'>Eliminar</button></td>";
+                    $html .= "</tr>";
+                }
+
+                echo $html;
+                
+                ?>
             </table>
 
         </aside>

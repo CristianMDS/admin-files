@@ -9,6 +9,8 @@ $u = urldecode(trim($_POST["user"]));
 $p = urldecode(trim($_POST["pass"]));
 $m = urldecode(trim($_POST["mail"]));
 
+$p = md5($p);
+
 $sql = "INSERT INTO usuarios (usuario, password, fecha, hora, mail) VALUES ('$u', '$p', '$date', '$hora', '$m')";
 $qry = $conn->query($sql);
 

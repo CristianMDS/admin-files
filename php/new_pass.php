@@ -1,33 +1,27 @@
 <?php
 
 
-header("Cache-Control: no-cache, must-revalidate");
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
+    <title>Nueva Contraseña</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
     <style>
         body {
             position: relative;
             height: 95vh; /* Altura del contenedor */
         }
 
-        #log-in {
+        #group {
             position: absolute;
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%); /* Centra horizontal y verticalmente */
-        }
-
-        header img {
-            width: 100px;
-            height: 100px;
         }
 
         #come-back{
@@ -40,36 +34,28 @@ header("Cache-Control: no-cache, must-revalidate");
     <div id="come-back">
         <button onclick="window.history.back()">Regresar</button>
     </div>
-    <div id="log-in">
+    <div id="group">
         <header>
-            <center>
-                <img src="../img/login.png" alt="Log in">
-            </center>
+            <h1>Nueva Contraseña</h1>
         </header>
-
         <aside>
             <label>
-                <p>Usuario:</p>
-                <input type="text" name="user" id="user" placeholder="Usuario..." />
-            </label>
-            <label>
-                <p>Contraseña:</p>
+                Contraseña:
                 <input type="password" name="pass" id="pass" placeholder="Contraseña..." />
             </label>
-            <br><br>
+            <label>
+                Repite la contraseña:
+                <input type="password" name="r-pass" id="r-pass" placeholder="Contraseña..." />
+            </label>
             <center>
-                <button id="btn-ing">Ingresar</button>
-                <br>
-                <!-- <a href="./restaurar_pass.php">¿Olvido la contraseña?</a> -->
+                <button id="new-pass">Restablecer</button>
             </center>
-
         </aside>
-
-        <footer>
-            <div id='message'></div>
-        </footer>
     </div>
-    <script src="../js/funciones.js"></script>
+    <?php
+        echo "
+            <script src='../js/security.js'></script>
+        ";
+    ?>
 </body>
 </html>
-
