@@ -1,4 +1,5 @@
 <?php
+header("Cache-Control: no-cache, must-revalidate");
 
 session_start();
 
@@ -13,6 +14,9 @@ if(trim($_SESSION["usu"]) == ''){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MANAGE-FILES</title>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -55,7 +59,7 @@ if(trim($_SESSION["usu"]) == ''){
     <center>
         <header>
             <h1>GESTOR DE ARCHIVOS</h1>
-            <h5>version. 1.2.0</h5>
+            <h5>version. 1.3.1</h5>
             <div id="group">
                 <div class="agregar"><button>+</button></div>
                 <!-- <div class="descargar"><button>Descargar</button></div>
@@ -93,7 +97,9 @@ if(trim($_SESSION["usu"]) == ''){
                                     <td><center>".$row['size']."</center></td>
                                     <td><center>".$row['fecha']." - ".$row['hora']."</center></td>
                                     <td><button>Descargar</button></td>
-                                    <td><button class='eliminar' id='".$row['nombre_archivo']."'>Eliminar</button></td>";
+                                    <td><button class='eliminart' 
+                                                id='".$row['nombre_archivo']." - ".$row['codigo']." - ".$row['tipo']."'
+                                                onclick='eliminar(this.id)' >Eliminar</button></td>";
                     $html .= "</tr>";
                 }
 

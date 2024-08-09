@@ -1,55 +1,83 @@
-$('.eliminar').click(() =>{ 
+const eliminar = (id) => {
+    let arr = id.split(" - ");
+    let archivo = arr[0].trim();
+    let codigo = arr[1].trim();
+    let tipo = arr[2].trim();
 
-    console.log(this.id);
+    let new_f = "backup_"+archivo+"."+tipo;
 
-    // Swal.fire({
-    //     title: "¡ESPERA!",
-    //     html: `¿Estas seguro de eliminar el archivo? <br /> y si lo <strong> Descargas </strong>`,
-    //     icon: "warning",
+    console.log(new_f);
+    
 
-    //     showDenyButton: true,
-    //     denyButtonText: "Eliminar y Ya",
-    //     denyButtonColor: "red",
+    Swal.fire({
+        title: "ALTO!",
+        html: `¿Estas seguro de eliminar el archivo? <br /> y si lo <strong> Descargas </strong>`,
+        icon: "warning",
 
-    //     showConfirmButton: true,
-    //     confirmButtonText: "Descargar",
-    //     confirmButtonColor: "green",
+        showDenyButton: true,
+        denyButtonText: "Eliminar y Ya",
+        denyButtonColor: "red",
 
-    //     showCancelButton: true,
-    //     cancelButtonText: "Cancelar",
-    //     cancelButtonColor: "grey"
-    // }).then((res) => {
-    //     if(res.isConfirmed){
-    //         window.location.href = "./php/exe/descargar_ex.php?archivo=backup_Certificate.pdf"
-    //     }else if(res.isDenied){
+        showConfirmButton: true,
+        confirmButtonText: "Descargar",
+        confirmButtonColor: "green",
 
-    //         let params = {
-    //             "archivo" : "backup_Certificate.pdf",
-    //             "route": "../../upload_files/"
-    //         };
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "grey"
+    }).then((res) => {
+        if(res.isConfirmed){
+            window.location.href = "./php/exe/descargar_ex.php?archivo="+new_f;
+        }else if(res.isDenied){
 
-    //         $.ajax({
-    //             type: "GET",
-    //             url: "./php/exe/eliminar_ex.php",
-    //             data: params,
-    //             success: (banana) => {
+            // No se aplica route por motivos de tiempo. Se agrega el codigo.
 
-    //                 let arr = banana.split(" - ");
-    //                 let r = arr[0];
-    //                 let archivo = arr[1];
+            let params = {
+                "archivo" : new_f,
+                "code": codigo,
+                "route": "../../upload_files/"
+            };
 
-    //                 if(r === 'Listo'){
-    //                     Swal.fire({
-    //                         title: "¡ELIMINADO!",
-    //                         icon: "info",
-    //                         html: `<p> El archivo ${archivo} ya fue eliminado </p>`
-    //                     }); 
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
-});
+            $.ajax({
+                type: "GET",
+                url: "./php/exe/eliminar_ex.php",
+                data: params,
+                success: (banana) => {
+
+                    let arr = banana.trim().split(" - ");
+                    let ans = arr[0];
+                    let archivo = arr[1];
+
+                    if(ans === 'Listo'){
+                        Swal.fire({
+                            title: "¡ELIMINADO!",
+                            icon: "info",
+                            html: `<p> El archivo ${archivo} ya fue eliminado </p>`
+                        }).then((e) => {
+                            if(e.isConfirmed){
+                                window.location.reload();
+                            }
+                        }); 
+                    }else if(ans === 'Error') {
+                        Swal.fire({
+                            title: "¡UPS!",
+                            icon: "warning",
+                            html: `<p> El archivo ${archivo} ya no se puede eliminar quizas ya no existe </p>`
+                        }).then((e) => {
+                            if(e.isConfirmed){
+                                window.location.reload();
+                            }
+                        }); 
+                    }
+                }
+            });
+        }
+    });
+
+}
+// $('Eliminar').click(() =>{ 
+    
+// });
 
 // $('#restablecer').click(() => { 
 //     let mail = $('#mail').val();
