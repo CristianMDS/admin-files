@@ -159,10 +159,6 @@ $('.newFolder').click(async () => {
     });
 });
 
-$('.descargar').click(() => {
-    window.location.href = "./php/exe/descargar_ex.php?archivo=backup_2024-07-20_subir_a_compensar.rar"
-});
-
 $('.log-in').click(function (e) { 
     window.location.href = "./php/log_in.php";
 });
@@ -174,9 +170,25 @@ $(document).ready(function () {
     $('#pass').prop('required', true);
     $('#mail').prop('required', true);
 
-    $('.txt-search').keypress((res) => { 
-        console.log($(this).val());
+});
+
+$('#search').on('keyup', () => {
+    let busqueda = $('#search').val();
+
+    console.log(busqueda);
+
+    $.ajax({
+        type: "POST",
+        url: "./php/buscar.php",
+        data: {
+            "busqueda": busqueda
+        },
+        success: (r) => {
+            r = r.trim();
+
+            $('.res').html(r);
+            // console.log(r);
+        }
     });
-
-
+    
 });

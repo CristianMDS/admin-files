@@ -5,7 +5,7 @@ header("Cache-Control: no-cache, must-revalidate");
 require("../conection/xconect.php");
 
 $u = $_POST["user"];
-$p = $_POST["pass"];
+$p = md5($_POST["pass"]);
 
 $sql = "SELECT usuario FROM usuarios WHERE usuario = '$u' AND password = '$p'";
 $qry = $conn->query($sql);

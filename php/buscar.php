@@ -1,5 +1,4 @@
 <?php
-header("Cache-Control: no-cache, must-revalidate");
 
     session_start();
     $usu = trim($_SESSION["usu"]);
@@ -11,13 +10,17 @@ header("Cache-Control: no-cache, must-revalidate");
     require("./conection/xconect.php");
 
 
-    $search = trim($_GET["search"]);
+    $search = trim($_POST["busqueda"]);
 
-    $sql = "SELECT * FROM archivos WHERE nombre_archivo = '$search'";
+    if($search == '')
+        echo "<script> window.location.reload() </script>";
+
+    $sql = "SELECT * FROM archivos WHERE nombre_archivo LIKE '$search%' AND estado = 'subido'";
     $qry = $conn->query($sql);
 
-    if($row = $qry->fetch_assoc()){
-        $html = "<tr>";
+    $html = "";
+    while($row = $qry->fetch_assoc()){
+        $html .= "<tr>";
             $html .= "<td> ".$row['nombre_archivo']." </td>";
             $html .= "<td> ".$row['tipo']." </td>";
             $html .= "<td> ".$row['size']." </td>";

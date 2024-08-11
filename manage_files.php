@@ -86,20 +86,30 @@ if(trim($_SESSION["usu"]) == ''){
 
                 $usu = $_SESSION["usu"];
 
-                $sql = "SELECT * FROM archivos ORDER BY fecha DESC";
+                $sql = "SELECT * FROM archivos WHERE estado != 'ELIMINADO' ORDER BY fecha DESC";
                 $qry = $conn->query($sql);
 
                 $html = "";
                 while($row = $qry->fetch_assoc()){
+
+                    $size = doubleval((doubleval($row['size'])/ 1024) /1024);
+
+                    if(trim($row["tipo"]) == 'rar' || trim($row["tipo"]) == 'zip'){
+                        $nombre_archivo = $row["fecha"]."_".trim(str_replace(" ", "_",$row["nombre_archivo"]));
+                    } else {
+                        $nombre_archivo = trim($row["nombre_archivo"]);
+                    }
                     $html .= "<tr>";
                         $html .= "<td><center>".$row['nombre_archivo']."</center></td>
                                     <td><center>".$row['tipo']."</center></td>
-                                    <td><center>".$row['size']."</center></td>
+                                    <td><center>".round($size, 2)." Mb </center></td>
                                     <td><center>".$row['fecha']." - ".$row['hora']."</center></td>
-                                    <td><button>Descargar</button></td>
-                                    <td><button class='eliminart' 
-                                                id='".$row['nombre_archivo']." - ".$row['codigo']." - ".$row['tipo']."'
-                                                onclick='eliminar(this.id)' >Eliminar</button></td>";
+                                    <td><button class='descargar'
+                                                id='".$nombre_archivo." - ".$row['tipo']."'
+                                                onclick='sec_descargar(this.id)'>Descargar</button></td>
+                                    <td><button class='eliminar' 
+                                                id='".$nombre_archivo." - ".$row['codigo']." - ".$row['tipo']."'
+                                                onclick='sec_eliminar(this.id)' >Eliminar</button></td>";
                     $html .= "</tr>";
                 }
 

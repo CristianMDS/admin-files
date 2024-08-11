@@ -1,14 +1,11 @@
-const eliminar = (id) => {
+function sec_eliminar(id) {
     let arr = id.split(" - ");
     let archivo = arr[0].trim();
     let codigo = arr[1].trim();
     let tipo = arr[2].trim();
 
     let new_f = "backup_"+archivo+"."+tipo;
-
-    console.log(new_f);
     
-
     Swal.fire({
         title: "ALTO!",
         html: `¿Estas seguro de eliminar el archivo? <br /> y si lo <strong> Descargas </strong>`,
@@ -75,9 +72,15 @@ const eliminar = (id) => {
     });
 
 }
-// $('Eliminar').click(() =>{ 
+
+function sec_descargar(id) {
+
+    let arr = id.split(' - ');
+    let archivo = arr[0], tipo = arr[1];
+    let archivo_final = "backup_"+archivo+"."+tipo;
     
-// });
+    window.location.href = "./php/exe/descargar_ex.php?archivo="+archivo_final;
+};
 
 // $('#restablecer').click(() => { 
 //     let mail = $('#mail').val();

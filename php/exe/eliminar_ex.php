@@ -9,7 +9,7 @@ $n_archivo = trim(str_replace("backup_", "", $n_archivo[0]));
 
 require("../conection/xconect.php");
 
-$sql = "DELETE FROM archivos WHERE codigo = '$codigo' AND nombre_archivo = '$n_archivo'";
+$sql = "UPDATE archivos SET estado = 'ELIMINADO' WHERE codigo = '$codigo'";
     $conn->query($sql);
 
 // Eliminar archivo en la misma ruta que el documento PHP
